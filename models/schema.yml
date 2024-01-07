@@ -29,7 +29,7 @@ models:
         tests:
           - unique
           - not_null
-      - name: status
+      - name: order_status
         tests:
           - accepted_values:
               values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
