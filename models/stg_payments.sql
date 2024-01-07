@@ -2,8 +2,13 @@ with
 
 payments as (
 
-    select *
-
+    select 
+        id,
+        orderid,
+        paymentmethod,
+        status,
+        amount,
+        created
     from dbt-learn-warehouse.dbt_acervantes.payments
 
 )
