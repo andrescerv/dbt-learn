@@ -1,10 +1,13 @@
 with
-
 payments as (
 
-    select *
-
-    -- from dbt-learn-warehouse.dbt_acervantes.payments
+    select
+        id,
+        orderid,
+        paymentmethod,
+        status,
+        amount,
+        created
     from {{ source('stripe', 'payments') }}
 
 )
