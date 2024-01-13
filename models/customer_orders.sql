@@ -1,35 +1,33 @@
 with
+
+    -- import CTEs 
+
     orders AS (
 
-        select
-            order_id,
-            customer_id,
-            order_date,
-            order_status
-
-        from {{ ref('stg_orders') }}
+        select * from {{ ref('stg_orders') }}
 
     ),
 
     customers as (
 
-        select 
-            customer_id,
-            first_name,
-            last_name,
-
-        from {{ ref('stg_customers') }}
+        select * from {{ ref('stg_customers') }}
 
     ),
 
     payments as (
+
+        select * from {{ ref("stg_payments") }}
+
+    ),
+
+    payments_ii as (
 
         select
             order_id,
             max(created) as payment_finalized_date,
             sum(amount) as total_amount_paid
 
-        from {{ ref("stg_payments") }}
+        from payments
 
         group by 1
 
@@ -42,14 +40,14 @@ with
             orders.customer_id,
             orders.order_date as order_placed_at,
             orders.order_status,
-            payments.total_amount_paid,
-            payments.payment_finalized_date,
+            payments_ii.total_amount_paid,
+            payments_ii.payment_finalized_date,
             customers.first_name as customer_first_name,
             customers.last_name as customer_last_name
 
         from orders
 
-        left join payments on orders.order_id = payments.order_id
+        left join payments_ii on orders.order_id = payments_ii.order_id
         left join customers on orders.customer_id = customers.customer_id
 
     ),
