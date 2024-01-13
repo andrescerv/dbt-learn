@@ -54,19 +54,6 @@ with
 
     ),
 
-    clv as (
-
-        select 
-            p.order_id,
-            sum(t2.total_amount_paid) as customer_lifetime_value
-
-        from paid_orders as p
-        left join paid_orders as t2 on p.customer_id = t2.customer_id and p.order_id >= t2.order_id
-
-        group by 1
-
-    ),
-
     first_order as (
 
         select
@@ -92,10 +79,9 @@ select
     row_number() over (order by p.order_id) as transaction_seq,
     row_number() over (partition by customer_id order by p.order_id) as customer_sales_seq,
     if(first_order.first_order_date = p.order_placed_at, 'new', 'return') as nvsr, -- is_new_order,
-    clv.customer_lifetime_value,
+    sum(p.total_amount_paid) over(partition by p.customer_id order by p.order_id) as customer_lifetime_value,
     first_order.first_order_date AS fdos,
 
 from paid_orders as p
 left join first_order using (customer_id)
-left outer join clv on clv.order_id = p.order_id
 order by order_id
