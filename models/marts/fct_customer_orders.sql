@@ -77,7 +77,7 @@ select
             order by p.order_placed_at
         ) = p.order_placed_at then 'new'
         else 'return'
-    end as nvsr2,
+    end as nvsr,
 
     -- CLV
     sum(p.total_amount_paid) over(partition by p.customer_id order by p.order_id) as customer_lifetime_value,
