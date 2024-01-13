@@ -20,6 +20,8 @@ with
 
     ),
 
+    -- logical CTEs
+
     payments_ii as (
 
         select
