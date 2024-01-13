@@ -1,0 +1,54 @@
+version: 2
+
+models:
+
+  - name: fct_customer_orders
+    description: This model show main metrics for each order
+    columns:
+
+      - name: order_id
+        description: Primary key in the stg_orders model
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('stg_orders')
+              field: order_id
+
+      - name: customer_id
+        description: Primary key in the stg_customers model
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+
+      - name: order_placed_at
+        description: Order date
+
+      - name: order_status
+        tests:
+          - accepted_values:
+              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+
+      - name: total_amount_paid
+
+      - name: payment_finalized_date
+
+      - name: customer_first_name
+
+      - name: customer_last_name
+
+      - name: transaction_seq
+
+      - name: customer_sales_seq
+
+      - name: nvsr
+        description: New vs Returned
+
+      - name: customer_lifetime_value
+        description: Total expenditure of the client at the moment of the order
+
+      - name: fdos
+        description: First order date
+      
