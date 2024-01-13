@@ -52,19 +52,6 @@ with
         left join payments_ii on orders.order_id = payments_ii.order_id
         left join customers on orders.customer_id = customers.customer_id
 
-    ),
-
-    first_order as (
-
-        select
-            customers.customer_id,
-            min(orders.order_date) as first_order_date,
-
-        from customers
-        left join orders on orders.customer_id = customers.customer_id
-
-        group by 1
-
     )
 
 select
@@ -76,12 +63,30 @@ select
     p.payment_finalized_date,
     p.customer_first_name,
     p.customer_last_name,
+
+    -- transaction sequence
     row_number() over (order by p.order_id) as transaction_seq,
+
+    -- customer transaction sequence
     row_number() over (partition by customer_id order by p.order_id) as customer_sales_seq,
-    if(first_order.first_order_date = p.order_placed_at, 'new', 'return') as nvsr, -- is_new_order,
+
+    -- new vs returning user
+    case 
+        when first_value(p.order_placed_at) over (
+            partition by p.customer_id
+            order by p.order_placed_at
+        ) = p.order_placed_at then 'new'
+        else 'return'
+    end as nvsr2,
+
+    -- CLV
     sum(p.total_amount_paid) over(partition by p.customer_id order by p.order_id) as customer_lifetime_value,
-    first_order.first_order_date AS fdos,
+
+    -- first day of sale
+    first_value(p.order_placed_at) over (
+        partition by p.customer_id
+        order by p.order_placed_at
+    ) as fdos, 
 
 from paid_orders as p
-left join first_order using (customer_id)
 order by order_id
