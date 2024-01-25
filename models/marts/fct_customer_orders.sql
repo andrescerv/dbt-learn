@@ -4,19 +4,19 @@ with
 
     orders AS (
 
-        select * from {{ ref('stg_orders') }}
+        select * from `dbt-learn-warehouse`.`dbt_acervantes`.`stg_orders`
 
     ),
 
     customers as (
 
-        select * from {{ ref('stg_customers') }}
+        select * from `dbt-learn-warehouse`.`dbt_acervantes`.`stg_customers`
 
     ),
 
     payments as (
 
-        select * from {{ ref("stg_payments") }}
+        select * from `dbt-learn-warehouse`.`dbt_acervantes`.`stg_payments`
 
     ),
 
@@ -26,8 +26,8 @@ with
 
         select
             order_id,
-            max(created) as payment_finalized_date,
-            sum(amount) as total_amount_paid
+            max(payment_created_at) as payment_finalized_date,
+            sum(payment_amount) as total_amount_paid
 
         from payments
 
@@ -40,12 +40,12 @@ with
         select
             orders.order_id,
             orders.customer_id,
-            orders.order_date as order_placed_at,
+            orders.valid_order_date as order_placed_at,
             orders.order_status,
             payments_ii.total_amount_paid,
             payments_ii.payment_finalized_date,
-            customers.first_name as customer_first_name,
-            customers.last_name as customer_last_name
+            customers.customer_first_name,
+            customers.customer_last_name
 
         from orders
 
@@ -90,3 +90,4 @@ select
 
 from paid_orders as p
 order by order_id
+  
