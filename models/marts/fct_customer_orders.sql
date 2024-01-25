@@ -4,19 +4,19 @@ with
 
     orders AS (
 
-        select * from `dbt-learn-warehouse`.`dbt_acervantes`.`stg_orders`
+        select * from {{ ref('stg_orders') }}
 
     ),
 
     customers as (
 
-        select * from `dbt-learn-warehouse`.`dbt_acervantes`.`stg_customers`
+        select * from {{ ref('stg_customers') }}
 
     ),
 
     payments as (
 
-        select * from `dbt-learn-warehouse`.`dbt_acervantes`.`stg_payments`
+        select * from {{ ref('stg_payments') }}
 
     ),
 
