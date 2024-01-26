@@ -1,0 +1,46 @@
+version: 2
+
+models:
+  - name: stg_actors
+    description: This model cleans up actor data
+    columns:
+      - name: actor_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: actor_username
+        description: Name of the user
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_commits
+    description: This model cleans up commit data
+    columns:
+      - name: event_id
+        description: Primary key
+      - name: sha
+        description: secure hashing algorithm
+      - name: message
+        description: commit message
+
+  - name: stg_events
+    description: This model cleans up event data
+    columns:
+      - name: event_id
+        description: Primary key
+      - name: event_type
+        description: Type of the event
+      - name: actor_id
+        description: Primary key of actors
+      - name: repo_id
+        description: Primary key of repos
+
+  - name: stg_repos
+    description: This model cleans up repo data
+    columns:
+      - name: repo_id
+        description: Primary key
+      - name: repo_name
+        description: Name of the repository

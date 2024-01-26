@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: clara
+    database: dbt-learn-warehouse  
+    schema: clara  
+    tables:
+      - name: actors
+      - name: commits
+      - name: events
+      - name: repos
