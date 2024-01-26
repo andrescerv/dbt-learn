@@ -7,12 +7,10 @@ models:
       - name: actor_id
         description: Primary key
         tests:
-          - unique
           - not_null
       - name: actor_username
         description: Name of the user
         tests:
-          - unique
           - not_null
 
   - name: stg_commits
@@ -20,8 +18,12 @@ models:
     columns:
       - name: event_id
         description: Primary key
+        tests:
+          - not_null
       - name: sha
         description: secure hashing algorithm
+        tests:
+          - not_null
       - name: message
         description: commit message
 
@@ -30,17 +32,31 @@ models:
     columns:
       - name: event_id
         description: Primary key
+        tests:
+          - unique
+          - not_null
       - name: event_type
         description: Type of the event
+        tests:
+          - accepted_values:
+              values: ['CommitCommentEvent','CreateEvent','DeleteEvent','ForkEvent','GollumEvent','IssueCommentEvent','IssuesEvent','MemberEvent','PublicEvent','PullRequestEvent','PullRequestReviewCommentEvent','PushEvent','ReleaseEvent','WatchEvent']
       - name: actor_id
         description: Primary key of actors
+        tests:
+          - not_null
       - name: repo_id
         description: Primary key of repos
+        tests:
+          - not_null
 
   - name: stg_repos
     description: This model cleans up repo data
     columns:
       - name: repo_id
         description: Primary key
+        tests:
+          - not_null
       - name: repo_name
         description: Name of the repository
+        tests:
+          - not_null

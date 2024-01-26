@@ -8,7 +8,7 @@ source as (
 
 transformed as (
 
-  select 
+  select distinct
 
     id as repo_id,
     name as repo_name
