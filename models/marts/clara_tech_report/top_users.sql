@@ -5,7 +5,7 @@ actors as (
     select
         actor_id,
         actor_username 
-    from {{ ref('stg_actors') }}
+    from {{ ref('stg_clara__actors') }}
 
 ),
 
@@ -16,7 +16,7 @@ events as (
         event_type,
         actor_id,
         repo_id
-    from {{ ref('stg_events') }}
+    from {{ ref('stg_clara__events') }}
 
 ),
 

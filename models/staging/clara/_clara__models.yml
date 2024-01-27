@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_actors
+  - name: stg_clara__actors
     description: This model cleans up actor data
     columns:
       - name: actor_id
@@ -13,7 +13,7 @@ models:
         tests:
           - not_null
 
-  - name: stg_commits
+  - name: stg_clara__commits
     description: This model cleans up commit data
     columns:
       - name: event_id
@@ -27,7 +27,7 @@ models:
       - name: message
         description: commit message
 
-  - name: stg_events
+  - name: stg_clara__events
     description: This model cleans up event data
     columns:
       - name: event_id
@@ -49,7 +49,7 @@ models:
         tests:
           - not_null
 
-  - name: stg_repos
+  - name: stg_clara__repos
     description: This model cleans up repo data
     columns:
       - name: repo_id

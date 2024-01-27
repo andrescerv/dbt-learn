@@ -6,7 +6,7 @@ repos as (
         repo_id,
         repo_name
 
-    from {{ ref('stg_repos') }}
+    from {{ ref('stg_clara__repos') }}
 
 ),
 
@@ -18,7 +18,7 @@ events as (
         actor_id,
         repo_id
 
-    from {{ ref('stg_events') }}
+    from {{ ref('stg_clara__events') }}
 
 ),
 
