@@ -36,8 +36,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  jaffle_shop:
-    +materialized: table
-
-  clara:
-    +materialized: table
+  staging:
+    +materialized: view
+    +persist_docs:
+      relation: true
+      columns: true
