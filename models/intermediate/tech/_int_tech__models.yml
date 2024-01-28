@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: int_commits_joined
+    description: This model adds qualitative data to each commit such as event_type, actor info, and repo info
+    columns:
+      - name: event_id
+        description: Primary key
+      - name: sha
+        description: Secure Hashing Algorithm
+      - name: message
+        description: Commit message
+      - name: event_type
+        description: Type of the event
+      - name: actor_id
+        description: Primary key of actors
+      - name: actor_username
+        description: Name of the user
+      - name: repo_id
+        description: Primary key of repos
+      - name: repo_name
+        description: Name of the repository

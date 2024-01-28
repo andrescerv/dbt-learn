@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: stg_clara__actors
+    description: This model cleans up actor data
+    columns:
+      - name: actor_id
+        description: Primary key
+        tests:
+          - not_null
+          - unique:
+              config:
+                severity: error
+                error_if: ">10"
+                warn_if: ">0"
+      - name: actor_username
+        description: Name of the user
+        tests:
+          - not_null
+          - unique:
+              config:
+                severity: error
+                error_if: ">10"
+                warn_if: ">0"
+      - name: rn
+        description: Row number to get the most recent actor_username. A better criteria is needed to define rn
+
+
+  - name: stg_clara__commits
+    description: This model cleans up commit data
+    columns:
+      - name: event_id
+        description: Primary key
+        tests:
+          - not_null
+      - name: sha
+        description: Secure Hashing Algorithm
+        tests:
+          - not_null
+      - name: message
+        description: commit message
+
+
+  - name: stg_clara__events
+    description: This model cleans up event data
+    columns:
+      - name: event_id
+        description: Primary key
+        tests:
+          - unique
+          - not_null
+      - name: event_type
+        description: Type of the event
+        tests:
+          - accepted_values:
+              values: ['CommitCommentEvent','CreateEvent','DeleteEvent','ForkEvent','GollumEvent','IssueCommentEvent','IssuesEvent','MemberEvent','PublicEvent','PullRequestEvent','PullRequestReviewCommentEvent','PushEvent','ReleaseEvent','WatchEvent']
+      - name: actor_id
+        description: Primary key of actors
+        tests:
+          - not_null
+      - name: repo_id
+        description: Primary key of repos
+        tests:
+          - not_null
+
+
+  - name: stg_clara__repos
+    description: This model cleans up repo data
+    columns:
+      - name: repo_id
+        description: Primary key
+        tests:
+          - not_null
+          - unique:
+              config:
+                severity: error
+                error_if: ">14"
+                warn_if: ">0"
+      - name: repo_name
+        description: Name of the repository
