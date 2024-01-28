@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: report_top_active_users
+    description: Top 10 active users sorted by amount of PRs created and commits pushed
+    columns:
+      - name: actor_id
+        description: Actor Id
+      - name: actor_username
+        description: Actor username
+      - name: n_commits
+        description: Amount of commits
+      - name: n_prs
+        description: Amount of pull-requests
+      - name: n_commits_and_prs
+        description: Sum of amount of commits and amount of pull-requests
+      - name: ranking
+        description: Ranking by sum of amount of commits and amount of pull-requests
+
+
+  - name: report_top_repos_by_commits
+    description: Top 10 repositories sorted by amount of commits pushed
+    columns:
+      - name: repo_id
+        description: Repository Id
+      - name: repo_name
+        description: Repository name
+      - name: n_commits
+        description: Amount of commits pushed
+      - name: ranking
+        description: Ranking by amount of commits pushed
+
+
+  - name: report_top_repos_by_watches
+    description: Top 10 repositories sorted by amount of watch events
+    columns:
+      - name: repo_id
+        description: Repository Id
+      - name: repo_name
+        description: Repository name
+      - name: n_watch_events
+        description: Amount of watch events
+      - name: ranking
+        description: Ranking by amount of watch events
