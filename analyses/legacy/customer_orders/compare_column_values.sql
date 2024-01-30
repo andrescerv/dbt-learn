@@ -3,14 +3,14 @@
 
 */
 {% macro print_audit_output() %}
-{%- set columns_to_compare=adapter.get_columns_in_relation(ref('fct_customer_orders'))  -%}
+{%- set columns_to_compare=adapter.get_columns_in_relation(ref('orders'))  -%}
 
 {% set old_etl_relation_query %}
     select * from {{ ref('leg_customer_orders') }}
 {% endset %}
 
 {% set new_etl_relation_query %}
-    select * from {{ ref('fct_customer_orders') }}
+    select * from {{ ref('orders') }}
 {% endset %}
 
 {% if execute %}

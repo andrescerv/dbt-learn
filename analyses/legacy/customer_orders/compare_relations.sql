@@ -1,5 +1,5 @@
 {% set old_etl_relation=ref('leg_customer_orders') %}
-{% set dbt_relation=ref('fct_customer_orders') %}
+{% set dbt_relation=ref('orders') %}
 
 
 {{ audit_helper.compare_relations(

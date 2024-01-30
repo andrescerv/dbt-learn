@@ -1,8 +1,9 @@
+
 version: 2
 
 models:
 
-  - name: fct_customer_orders
+  - name: orders
     description: This model show main metrics for each order
     columns:
 

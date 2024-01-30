@@ -33,7 +33,7 @@
     nvsr,
     customer_lifetime_value,
     fdos,
-  from {{ ref('fct_customer_orders') }}
+  from {{ ref('orders') }}
 {% endset %}
 
 {{ audit_helper.compare_queries(
