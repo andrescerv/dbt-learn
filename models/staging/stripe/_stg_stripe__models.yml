@@ -2,7 +2,7 @@ version: 2
 
 models:
 
-  - name: stg_payments
+  - name: stg_stripe__payments
     description: This model cleans up payment data
     columns:
       - name: payment_id
